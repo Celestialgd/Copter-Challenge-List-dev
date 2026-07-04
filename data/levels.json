@@ -1,26 +1,10 @@
 [
   {
     "rank": 1,
-    "name": "Hellfire Copter",
-    "author": "Vortex",
+    "name": "Grief",
+    "author": "Xander",
     "mode": "Swingcopter",
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "description": "The current hardest frame-perfect swingcopter challenge on the list. Extremely tight corridors."
-  },
-  {
-    "rank": 2,
-    "name": "Quantum Glide",
-    "author": "Zephyrus",
-    "mode": "Shipcopter",
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "description": "A grueling shipcopter level focusing on high-speed straight-flying physics."
-  },
-  {
-    "rank": 3,
-    "name": "Robo Mayhem",
-    "author": "CyberPulse",
-    "mode": "Robotcopter",
-    "video": "",
-    "description": "Unique robotcopter gameplay requiring precise micro-clicks."
+    "video": "https://www.youtube.com/watch?v=XbnHVEjIebk",
+    "description": "Challenge made in one day, somewhat fun to play."
   }
-]
+  ]
