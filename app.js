@@ -12,7 +12,8 @@ const modeClassMap = {
     "Ufocopter": "badge-ufo",
     "Cubecopter": "badge-cube",
     "Robotcopter": "badge-robot",
-    "RobTop Swing": "badge-robtop"
+    "RobTop Swing": "badge-robtop",
+    "Spidercopter": "badge-spider"
 };
 
 // Initialize Application
