@@ -154,7 +154,7 @@ function selectLevel(rank) {
         <h3 style="margin-bottom:15px; font-size:1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom:8px;">Records Verified</h3>
         <div class="records-list" style="display: flex; flex-direction: column; gap: 8px;">
             ${(() => {
-                const verifiedPlayers = state.players.filter(p => p.completions && p.completions.includes(level.name));
+                const verifiedPlayers = state.players.filter(p => p.completed && p.completed.includes(level.name));
                 
                 if (verifiedPlayers.length === 0) {
                     return `<p style="color:var(--text-muted); font-size:0.95rem;">No verified records for this challenge yet.</p>`;
