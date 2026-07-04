@@ -17,6 +17,7 @@
     --badge-cube: #22c55e;
     --badge-robot: #ef4444;
     --badge-robtop: #ec4899;
+    --badge-spider: #c203fc;
 }
 
 * {
@@ -242,6 +243,7 @@ body {
 .badge-cube { background-color: rgba(34, 197, 94, 0.15); color: var(--badge-cube); border: 1px solid var(--badge-cube); }
 .badge-robot { background-color: rgba(239, 68, 68, 0.15); color: var(--badge-robot); border: 1px solid var(--badge-robot); }
 .badge-robtop { background-color: rgba(236, 72, 153, 0.15); color: var(--badge-robtop); border: 1px solid var(--badge-robtop); }
+.badge-spider { background-color: rgba(194, 3, 252, 0.15); color: var(--badge-spider); border: 1px solid var(--badge-spider); }
 
 /* ================= DETAIL VIEW COMPONENTS ================= */
 .panel-placeholder {
