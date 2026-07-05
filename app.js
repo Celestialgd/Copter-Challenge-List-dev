@@ -191,19 +191,30 @@ function selectLevel(rank) {
         <h3 style="margin-bottom:15px; font-size:1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom:8px;">Records Verified</h3>
         <div class="records-list" style="display: flex; flex-direction: column; gap: 8px;">
             ${(() => {
-                const verifiedPlayers = state.players.filter(p => p.completed && p.completed.includes(level.name));
+                // Filter to find players who have this specific level inside their completed array
+                const verifiedRecords = [];
                 
-                if (verifiedPlayers.length === 0) {
+                state.players.forEach(p => {
+                    if (p.completed && Array.isArray(p.completed)) {
+                        const match = p.completed.find(c => c.levelName === level.name);
+                        if (match) {
+                            verifiedRecords.push({
+                                name: p.name,
+                                video: match.video || level.video || '#'
+                            });
+                        }
+                    }
+                });
+                
+                if (verifiedRecords.length === 0) {
                     return `<p style="color:var(--text-muted); font-size:0.95rem;">No verified records for this challenge yet.</p>`;
                 }
                 
-                // FIXED LINK TRACKING LOGIC HERE
-                return verifiedPlayers.map(p => {
-                    const recordLink = p.proofVideo || p.proof || level.video || '#';
+                return verifiedRecords.map(record => {
                     return `
                         <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color);">
-                            <span style="font-weight: 600;">${p.name}</span>
-                            <a href="${recordLink}" target="_blank" style="color: var(--teal); font-size: 0.9rem; text-decoration: none; font-weight: 600;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                            <span style="font-weight: 600;">${record.name}</span>
+                            <a href="${record.video}" target="_blank" style="color: var(--teal); font-size: 0.9rem; text-decoration: none; font-weight: 600;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
                                 100% Complete 🔗
                             </a>
                         </div>
@@ -225,12 +236,17 @@ function renderLeaderboard() {
     }
 
     state.players.forEach(player => {
+        // Unpack object elements to pull just the level strings for the UI display row
+        const levelNamesList = player.completed && Array.isArray(player.completed) 
+            ? player.completed.map(c => c.levelName).join(', ') 
+            : 'No completions';
+
         const row = document.createElement('tr');
         row.innerHTML = `
             <td style="font-weight: 800; color: var(--teal);">#${player.rank}</td>
             <td style="font-weight: 600;">${player.name}</td>
-            <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                ${player.completed.join(', ')}
+            <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${levelNamesList}">
+                ${levelNamesList}
             </td>
             <td style="font-weight: 800; color: var(--teal);">${player.points.toFixed(1)}</td>
         `;

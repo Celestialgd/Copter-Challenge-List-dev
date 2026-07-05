@@ -3,35 +3,43 @@
     "rank": 1,
     "name": "Celestegd",
     "points": 300,
-    "completed": ["Tarnish,Grief"],
-    "proofVideo": "https://youtu.be/jiWMCZvPlqE?si=Bzm7gFg4cFEzxY6w,https://youtu.be/bWQUlgja4UM"
+    "completed": [
+      { "levelName": "Tarnish", "video": "https://youtu.be/jiWMCZvPlqE" },
+      { "levelName": "Grief", "video": "https://youtu.be/bWQUlgja4UM" }
+    ]
   },
   {
     "rank": 2,
-    "name": "Xander",
+    "name": "Aspectt",
     "points": 100,
-    "completed": ["Grief"],
-    "proofVideo": "https://youtu.be/ufsX1ucew_k"
+    "completed": [
+      { "levelName": "Tarnish", "video": "https://youtu.be/a7IwDLtloCs?si=W-KMw8_ybr3thTBr" },
+      { "levelName": "Grief", "video": "https://www.youtube.com/watch?v=3WfXq-fhYQk" }
+    ]
   },
   {
     "rank": 3,
-    "name": "Krakav",
+    "name": "Xander",
     "points": 100,
-    "completed": ["Grief"],
-    "proofVideo": "https://youtu.be/gVWOcI3wMYo"
+    "completed": [
+      { "levelName": "Grief", "video": "https://youtu.be/ufsX1ucew_k?si=Y0wAz2o6NBvIYGC9" }
+    ]
   },
   {
     "rank": 4,
-    "name": "Aspectt",
+    "name": "Krakav",
     "points": 100,
-    "completed": ["Grief"],
-    "proofVideo": "https://youtu.be/3WfXq-fhYQk?si=753LFDepe-6PCiq5"
+    "completed": [
+      { "levelName": "Grief", "video": "https://www.youtube.com/watch?v=gVWOcI3wMYo" }
+    ]
   },
+  
   {
     "rank": 5,
     "name": "LordOfFIH",
     "points": 100,
-    "completed": ["Grief"],
-    "proofVideo": "https://youtu.be/3WfXq-fhYQk?si=753LFDepe-6PCiq5"
+    "completed": [
+      { "levelName": "Grief", "video": "https://youtu.be/TX0YkJI5Jok" }
+    ]
   }
-  ]
+]
