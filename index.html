@@ -30,15 +30,45 @@
     </section>
 
     <section id="view-list" class="view container hidden">
-        <div class="list-layout">
-            <div class="list-sidebar" id="levels-container">
-                </div>
+        <div class="list-layout" style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-top: 20px;">
             
-            <div class="list-detail-panel" id="level-detail-panel">
+            <div class="list-sidebar" style="flex: 1; min-width: 260px;">
+                
+                <div class="filter-bar" style="margin-bottom: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button onclick="filterMode('All')" style="background: var(--teal); color: #000; border: none; padding: 6px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">All</button>
+                    <button onclick="filterMode('Swingcopter')" style="background: var(--bg-card); color: var(--text-color); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">Swing</button>
+                    <button onclick="filterMode('Ufocopter')" style="background: var(--bg-card); color: var(--text-color); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">UFO</button>
+                </div>
+
+                <div id="levels-container"></div>
+            </div>
+            
+            <div class="list-detail-panel" id="level-detail-panel" style="flex: 2; min-width: 320px;">
                 <div class="panel-placeholder">
                     <p>Select a challenge from the list to view video, details, and records.</p>
                 </div>
             </div>
+
+            <div class="guidelines-card" style="flex: 1; min-width: 280px; background: var(--bg-card); border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 1.25rem; color: var(--teal); border-bottom: 1px solid var(--border-color); padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <span>List Rules</span>
+                    <a href="https://discord.gg/jtAmfHNY8" target="_blank" title="Join our Discord Server" style="color: #5865F2; display: flex; align-items: center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.73-11A68.21,68.21,0,0,1,28.1,80.17c.91-.66,1.8-1.34,2.66-2a75.58,75.58,0,0,0,95.66,0c.86.69,1.75,1.37,2.66,2a68.42,68.42,0,0,1-10.66,5.16,74.61,74.61,0,0,0,6.73,11,105.73,105.73,0,0,0,31-18.83C129,50.7,122.64,27.78,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/></svg>
+                    </a>
+                </h3>
+                <ol style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; line-height: 1.4; color: #ddd;">
+                    <li><strong>ONLY Copter:</strong> Gameplay must only consist of swingcopter forms.</li>
+                    <li><strong>Duration:</strong> Length must be between 10 and 30 seconds.</li>
+                    <li><strong>Decoration:</strong> Presentable layouts or decorated levels only.</li>
+                    <li><strong>Submissions:</strong> Require audible clicks, cheat indicators, and CPS.</li>
+                    <li><strong>Audio:</strong> Provide NONG downloads unless available on Jukebox.</li>
+                    <li><strong>Conduct:</strong> No harassment or explicit hate speech allowed.</li>
+                    <li><strong>Staff:</strong> Show respect to volunteering moderators.</li>
+                    <li><strong>Plagiarism:</strong> Zero tolerance for copied gameplay.</li>
+                    <li><strong>Have funnnn!</strong> 🎉</li>
+                </ol>
+            </div>
+
         </div>
     </section>
 

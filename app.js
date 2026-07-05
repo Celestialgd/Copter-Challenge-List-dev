@@ -142,9 +142,12 @@ function selectLevel(rank) {
         <div class="detail-header">
             <h2 class="detail-title"><span class="level-rank">#${level.rank}</span> ${level.name}</h2>
             
-            <div class="level-id" style="font-size: 0.95rem; color: var(--text-muted); margin-top: -4px; margin-bottom: 8px; font-family: monospace;">
-                ID: ${level.id || 'Unassigned'}
-            </div>
+            <div class="level-id" 
+     onclick="navigator.clipboard.writeText('${level.id || ''}'); alert('Level ID Copied to Clipboard!');" 
+     style="font-size: 0.95rem; color: var(--text-muted); margin-top: -4px; margin-bottom: 8px; font-family: monospace; cursor: pointer; display: inline-block;" 
+     title="Click to copy ID">
+    ID: ${level.id || 'Unassigned'} 📋
+</div>
 
             <p class="level-creator" style="font-size:1rem; margin-top: 4px;">Published by <strong>${level.author}</strong></p>
             <span class="badge ${modeClassMap[level.mode] || 'badge-ship'}" style="display:inline-block; margin-top:10px;">${level.mode}</span>
@@ -166,11 +169,13 @@ function selectLevel(rank) {
                 }
                 
                 return verifiedPlayers.map(p => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color);">
-                        <span style="font-weight: 600;">${p.name}</span>
-                        <span style="color: var(--teal); font-size: 0.9rem;">100% Complete</span>
-                    </div>
-                `).join('');
+    <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color);">
+        <span style="font-weight: 600;">${p.name}</span>
+        <a href="${p.proofVideo || level.video}" target="_blank" style="color: var(--teal); font-size: 0.9rem; text-decoration: none; font-weight: 600;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+            100% Complete 🔗
+        </a>
+    </div>
+`).join('');
             })()}
         </div>
     `;
