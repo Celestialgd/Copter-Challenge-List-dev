@@ -55,6 +55,13 @@ body {
     margin: 100px auto 40px auto;
     padding: 0 20px;
 }
+
+/* New Structural Class: Add this container class around your list view section if needed */
+.main-content {
+    height: calc(100vh - 140px); /* Locks view directly inside standard viewport boundaries */
+    overflow: hidden;
+}
+
 .hidden {
     display: none !important;
 }
@@ -162,26 +169,28 @@ body {
     transform: translateY(-2px);
 }
 
-/* ================= SHITTY-LIST SPLIT LAYOUT ================= */
+/* ================= CHALLENGE LIST SPLIT LAYOUT ================= */
 .list-layout {
     display: grid;
     grid-template-columns: 380px 1fr;
     gap: 25px;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 160px); /* Constrains dynamic height engine completely */
 }
 .list-sidebar {
     background-color: var(--bg-dark);
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    overflow-y: auto;
-    padding: 10px;
+    overflow-y: auto; /* Activates separate rail layout tracking */
+    max-height: 100%;  /* Keeps box heights perfectly proportional */
+    padding: 15px;
 }
 .list-detail-panel {
     background-color: var(--bg-dark);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 30px;
-    overflow-y: auto;
+    overflow-y: auto; /* Detail cards can scroll safely now */
+    max-height: 100%;
     position: relative;
 }
 
