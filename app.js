@@ -210,7 +210,7 @@ function renderLeaderboard() {
 function filterMode(mode) {
     const buttons = document.querySelectorAll('.filter-bar button');
     
-    // 1. Update active button visual styles using the attribute string match
+    // 1. Highlight the clicked button
     buttons.forEach(btn => {
         const onClickAttr = btn.getAttribute('onclick') || '';
         if (onClickAttr.includes(`'${mode}'`)) {
@@ -224,22 +224,41 @@ function filterMode(mode) {
         }
     });
 
-    // 2. Filter the levels in the UI sidebar stack
-    const levelCards = document.querySelectorAll('#levels-container .level-card');
+    // 2. Grab all children inside your levels container directly
+    const container = document.getElementById('levels-container');
+    if (!container) {
+        console.error("Could not find element with id 'levels-container'");
+        return;
+    }
     
-    levelCards.forEach(card => {
-        // Find the mode badge element inside the card
-        const modeBadge = card.querySelector('.badge');
-        if (!modeBadge) return;
-        
-        const cardMode = modeBadge.textContent.trim().toLowerCase();
-        const searchMode = mode.toLowerCase();
+    // This grabs EVERY level element inside the sidebar, no matter what class name it uses
+    const levelCards = container.children;
+    console.log(`Found ${levelCards.length} total cards inside #levels-container.`);
 
-        // Use partial matching (so 'swing' matches 'swingcopter' and 'ufo' matches 'ufocopter')
-        if (searchMode === 'all' || cardMode.includes(searchMode) || searchMode.includes(cardMode)) {
+    for (let card of levelCards) {
+        // Find any badge element or span inside the card
+        const badge = card.querySelector('.badge') || card.querySelector('span');
+        
+        if (!badge) {
+            // Diagnostic fallback: if no badge is found, just keep the card visible
+            card.style.display = 'block';
+            continue;
+        }
+        
+        const cardMode = badge.textContent.trim().toLowerCase();
+        const searchMode = mode.toLowerCase();
+        
+        console.log(`Checking card... Level Mode text is: "${cardMode}". Searching for: "${searchMode}"`);
+
+        // Flexible matching
+        if (
+            searchMode === 'all' || 
+            cardMode.includes(searchMode) || 
+            searchMode.includes(cardMode)
+        ) {
             card.style.display = 'block';
         } else {
             card.style.display = 'none';
         }
-    });
+    }
 }
