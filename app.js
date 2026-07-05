@@ -141,13 +141,18 @@ function selectLevel(rank) {
     detailPanel.innerHTML = `
         <div class="detail-header">
             <h2 class="detail-title"><span class="level-rank">#${level.rank}</span> ${level.name}</h2>
-            <p class="level-creator" style="font-size:1rem;">Published by <strong>${level.author}</strong></p>
+            
+            <div class="level-id" style="font-size: 0.95rem; color: var(--text-muted); margin-top: -4px; margin-bottom: 8px; font-family: monospace;">
+                ID: ${level.id || 'Unassigned'}
+            </div>
+
+            <p class="level-creator" style="font-size:1rem; margin-top: 4px;">Published by <strong>${level.author}</strong></p>
             <span class="badge ${modeClassMap[level.mode] || 'badge-ship'}" style="display:inline-block; margin-top:10px;">${level.mode}</span>
         </div>
 
         ${videoHTML}
 
-        <div class="class="detail-description">
+        <div class="detail-description">
             <p>${level.description || 'No descriptive evaluation logs submitted for this challenge layout.'}</p>
         </div>
 
