@@ -16,6 +16,32 @@ const modeClassMap = {
     "Spidercopter": "badge-spider"
 };
 
+// Helper Function to Extract YouTube ID and Convert to Borderless Embed Link
+function getEmbedUrl(url) {
+    if (!url) return '';
+    let videoId = '';
+    
+    // Check for standard watch?v= format
+    if (url.includes('youtube.com/watch?v=')) {
+        videoId = url.split('v=')[1].split('&')[0];
+    } 
+    // Check for mobile/shortened youtu.be/ sharing links
+    else if (url.includes('youtu.be/')) {
+        videoId = url.split('youtu.be/')[1].split('?')[0];
+    } 
+    // If it's already an embed link, leave it completely alone
+    else if (url.includes('youtube.com/embed/')) {
+        return url; 
+    } 
+    // Fallback for non-YouTube links if you host files elsewhere later
+    else {
+        return url; 
+    }
+    
+    // Returns a clean embed string with player parameters to reduce UI clutter
+    return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+}
+
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
     initRouter();
@@ -128,12 +154,15 @@ function selectLevel(rank) {
 
     const detailPanel = document.getElementById('level-detail-panel');
     
-    // Video Embed Setup
+    // Video Embed Setup using our smart converter helper
     let videoHTML = `<div class="video-container"><div class="no-video">No Video Available</div></div>`;
     if (level.video && level.video.trim() !== "") {
+        // Run the raw JSON string through the converter first!
+        const cleanEmbedUrl = getEmbedUrl(level.video);
+        
         videoHTML = `
             <div class="video-container">
-                <iframe src="${level.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="${cleanEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         `;
     }
