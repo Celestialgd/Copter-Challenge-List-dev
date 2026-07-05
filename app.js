@@ -206,3 +206,35 @@ function renderLeaderboard() {
         container.appendChild(row);
     });
 }
+
+function filterMode(mode) {
+    const buttons = document.querySelectorAll('.filter-bar button');
+    
+    // 1. Update active button visual styles
+    buttons.forEach(btn => {
+        if (btn.textContent.trim() === mode || (mode === 'All' && btn.textContent.trim() === 'All')) {
+            btn.style.background = 'var(--teal)';
+            btn.style.color = '#000';
+            btn.style.border = 'none';
+        } else {
+            btn.style.background = 'var(--bg-card)';
+            btn.style.color = 'var(--text-color)';
+            btn.style.border = '1px solid var(--border-color)';
+        }
+    });
+
+    // 2. Filter the levels in the UI sidebar stack
+    const levelCards = document.querySelectorAll('#levels-container .level-card');
+    
+    levelCards.forEach(card => {
+        // Looks for the mode badge text inside each card to match it up
+        const modeBadge = card.querySelector('.badge');
+        const cardMode = modeBadge ? modeBadge.textContent.trim() : '';
+
+        if (mode === 'All' || cardMode === mode) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
