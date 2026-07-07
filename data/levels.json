@@ -1,6 +1,15 @@
 [
   {
     "rank": 1,
+    "name": "Snow Speed",
+    "author": "ZAV3L",
+    "mode": "Robtop swing",
+    "id": "144298932",
+    "video": "https://youtu.be/0LJte1rPKow",
+    "description": "ts is lwky annoying as hell dawg."
+  },
+  {
+    "rank": 2,
     "name": "Tarnish",
     "author": "Celestegd",
     "mode": "Shipcopter",
@@ -9,7 +18,25 @@
     "description": "Tarnish your skill. Let out your rust."
   },
   {
-    "rank": 2,
+    "rank": 3,
+    "name": "Frozen swing",
+    "author": "aspectt",
+    "mode": "Swingcopter",
+    "id": "144294588",
+    "video": "https://youtu.be/2yRavv-0ALw",
+    "description": "N/A"
+  },
+  {
+    "rank": 4,
+    "name": "Small Symphony",
+    "author": "VPrex",
+    "mode": "Varied",
+    "id": "144279856",
+    "video": "https://youtu.be/1b0INz5zSng",
+    "description": "You know how you dig sunsets? That's gold"
+  },
+  {
+    "rank": 5,
     "name": "Grief",
     "author": "Xander",
     "mode": "Swingcopter",
