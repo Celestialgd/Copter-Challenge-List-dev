@@ -154,7 +154,7 @@ function renderListSidebar() {
         // Dynamically grab point values to show next to the challenge name
         const pointsForThisLevel = calculateLevelPoints(level.rank);
 
-        levelItem = document.createElement('div');
+        const levelItem = document.createElement('div');
         levelItem.className = `level-item ${state.activeLevelId === level.rank ? 'active' : ''}`;
         levelItem.id = `level-item-${level.rank}`;
         levelItem.onclick = () => selectLevel(level.rank);
