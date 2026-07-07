@@ -13,7 +13,8 @@ const modeClassMap = {
     "Cubecopter": "badge-cube",
     "Robotcopter": "badge-robot",
     "RobTop Swing": "badge-robtop",
-    "Spidercopter": "badge-spider"
+    "Spidercopter": "badge-spider",
+    "Varied": "badge-varied"
 };
 
 // Helper Function to Extract YouTube ID and Convert to Borderless Embed Link
