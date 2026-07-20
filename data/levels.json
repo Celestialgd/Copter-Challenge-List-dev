@@ -6,7 +6,8 @@
     "mode": "RobTop Swing",
     "id": "144876662",
     "video": "https://www.youtube.com/watch?v=xkckCOgGWVY",
-    "description": "uhhh"
+    "description": "Swing gamemode is cool",
+    "rating": "Featured"
   },
   {
     "rank": 2,
@@ -15,7 +16,8 @@
     "mode": "RobTop Swing",
     "id": "144298932",
     "video": "https://youtu.be/0LJte1rPKow",
-    "description": "ts is lwky annoying as hell dawg."
+    "description": "ts is lwky annoying as hell dawg.",
+    "rating": "Featured"
   },
   {
     "rank": 3,
@@ -24,7 +26,8 @@
     "mode": "Swingcopter",
     "id": "144294588",
     "video": "https://youtu.be/2yRavv-0ALw",
-    "description": "N/A"
+    "description": "N/A",
+    "rating": "Featured"
   },
   {
     "rank": 4,
@@ -33,7 +36,8 @@
     "mode": "Cubecopter",
     "id": "144761772",
     "video": "https://youtu.be/95Ybga3_KDk?is=N6zGuZK4BuqcmSaa",
-    "description": "i drive a funky ehh"
+    "description": "i drive a funky ehh",
+    "rating": "Rated"
   },
   {
     "rank": 5,
@@ -42,7 +46,8 @@
     "mode": "Shipcopter",
     "id": "144238279",
     "video": "https://youtu.be/jiWMCZvPlqE",
-    "description": "Tarnish your skill. Let out your rust."
+    "description": "Tarnish your skill. Let out your rust.",
+    "rating": "Rated"
   },
   {
     "rank": 6,
@@ -51,7 +56,8 @@
     "mode": "Varied",
     "id": "144279856",
     "video": "https://youtu.be/1b0INz5zSng",
-    "description": "You know how you dig sunsets? That's gold"
+    "description": "You know how you dig sunsets? That's gold",
+    "rating": "Featured"
   },
   {
     "rank": 7,
@@ -60,7 +66,8 @@
     "mode": "Swingcopter",
     "id": "144100696",
     "video": "https://youtu.be/ufsX1ucew_k",
-    "description": "Challenge made in one day, somewhat fun to play."
+    "description": "Challenge made in one day, somewhat fun to play.",
+    "rating": "Rated"
   },
   {
     "rank": 8,
@@ -69,6 +76,7 @@
     "mode": "Ufocopter",
     "id": "144368970",
     "video": "https://youtu.be/MT2ed9U8ZoQ",
-    "description": "Very Goonable Challenge."
+    "description": "Very Goonable Challenge.",
+    "rating": "Featured"
   }
 ]

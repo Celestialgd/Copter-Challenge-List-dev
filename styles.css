@@ -395,4 +395,20 @@ body {
     .landing-container h1 {
         font-size: 2.5rem;
     }
+
+/* Creator Rating Highlights */
+.rating-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 4px;
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+.rating-rated { background-color: #7f8c8d; color: #fff; }       /* Gray */
+.rating-featured { background-color: #cd7f32; color: #fff; }    /* Bronze */
+.rating-epic { background-color: #f1c40f; color: #000; }        /* Yellow */
+.rating-legendary { background-color: #9b59b6; color: #fff; }   /* Purple */
+.rating-mythic { background-color: #2980b9; color: #fff; }      /* Blue */
 }

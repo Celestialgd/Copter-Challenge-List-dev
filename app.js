@@ -17,7 +17,25 @@ const modeClassMap = {
     "Varied": "badge-varied"
 };
 
-// Calculate points dynamically based on level placement (rank)
+// Creator Rating Points Values Mapping
+const ratingPointsMap = {
+    "Rated": 1,
+    "Featured": 2,
+    "Epic": 3,
+    "Legendary": 4,
+    "Mythic": 5
+};
+
+// Creator Rating CSS Class Mapping
+const ratingClassMap = {
+    "Rated": "rating-rated",
+    "Featured": "rating-featured",
+    "Epic": "rating-epic",
+    "Legendary": "rating-legendary",
+    "Mythic": "rating-mythic"
+};
+
+// Calculate player points dynamically based on level placement (rank)
 function calculateLevelPoints(rank) {
     const x = Number(rank);
     if (isNaN(x) || x <= 0) return 0;
@@ -33,7 +51,6 @@ function getPlayerTotalPoints(player) {
     
     let total = 0;
     player.completed.forEach(completion => {
-        // Find the level in your global state to check its current rank/placement
         const globalLevel = state.levels.find(l => l.name === completion.levelName);
         if (globalLevel) {
             total += calculateLevelPoints(globalLevel.rank);
@@ -43,29 +60,54 @@ function getPlayerTotalPoints(player) {
     return Number(total.toFixed(2));
 }
 
+// Dynamically calculate total creator points across all levels by author name matching
+function getCreatorLeaderboard() {
+    const creatorTotals = {};
+
+    state.levels.forEach(level => {
+        if (!level.author) return;
+        
+        // Match name safely by cleaning up whitespace
+        const authorName = level.author.trim();
+        const rating = level.rating || "None";
+        const points = ratingPointsMap[rating] || 0;
+
+        if (!creatorTotals[authorName]) {
+            creatorTotals[authorName] = { name: authorName, points: 0, levelsCreated: 0 };
+        }
+
+        creatorTotals[authorName].points += points;
+        if (points > 0) {
+            creatorTotals[authorName].levelsCreated += 1;
+        }
+    });
+
+    // Convert to array and sort by points (highest first), then alphabetically (A-Z)
+    return Object.values(creatorTotals)
+        .filter(c => c.points > 0)
+        .sort((a, b) => {
+            if (b.points !== a.points) {
+                return b.points - a.points;
+            }
+            return a.name.localeCompare(b.name);
+        });
+}
+
 // Helper Function to Extract YouTube ID and Convert to Borderless Embed Link
 function getEmbedUrl(url) {
     if (!url) return '';
     let videoId = '';
     
-    // Check for standard watch?v= format
     if (url.includes('youtube.com/watch?v=')) {
         videoId = url.split('v=')[1].split('&')[0];
-    } 
-    // Check for mobile/shortened youtu.be/ sharing links
-    else if (url.includes('youtu.be/')) {
+    } else if (url.includes('youtu.be/')) {
         videoId = url.split('youtu.be/')[1].split('?')[0];
-    } 
-    // If it's already an embed link, leave it completely alone
-    else if (url.includes('youtube.com/embed/')) {
+    } else if (url.includes('youtube.com/embed/')) {
         return url; 
-    } 
-    // Fallback for non-YouTube links if you host files elsewhere later
-    else {
+    } else {
         return url; 
     }
     
-    // Returns a clean embed string with player parameters to reduce UI clutter
     return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
 }
 
@@ -80,7 +122,6 @@ function initRouter() {
     const handleRoute = () => {
         const hash = window.location.hash || '#home';
         
-        // Hide all views
         document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         
@@ -108,7 +149,7 @@ function initRouter() {
     };
 
     window.addEventListener('hashchange', handleRoute);
-    handleRoute(); // Execute on initial load
+    handleRoute();
 }
 
 // Fetch Data Pipelines
@@ -124,8 +165,8 @@ async function loadData() {
 
         renderListSidebar();
         renderLeaderboard();
+        renderCreatorLeaderboard(); // Builds your new creator table automatically
         
-        // Auto-select first item if on list view
         if(window.location.hash === '#list' && state.levels.length > 0) {
             selectLevel(state.levels[0].rank);
         }
@@ -147,11 +188,8 @@ function renderListSidebar() {
     }
 
     state.levels.forEach(level => {
-        // Safe, Case-Insensitive Mode Badge Lookup to prevent pipeline crashes
         const matchedKey = Object.keys(modeClassMap).find(key => key.toLowerCase() === (level.mode || '').toLowerCase());
         const badgeClass = matchedKey ? modeClassMap[matchedKey] : 'badge-ship';
-
-        // Dynamically grab point values to show next to the challenge name
         const pointsForThisLevel = calculateLevelPoints(level.rank);
 
         const levelItem = document.createElement('div');
@@ -177,7 +215,6 @@ function renderListSidebar() {
 function selectLevel(rank) {
     state.activeLevelId = rank;
     
-    // Update active visual classes in layout
     document.querySelectorAll('.level-item').forEach(el => el.classList.remove('active'));
     const activeEl = document.getElementById(`level-item-${rank}`);
     if (activeEl) activeEl.classList.add('active');
@@ -187,12 +224,9 @@ function selectLevel(rank) {
 
     const detailPanel = document.getElementById('level-detail-panel');
     
-    // Video Embed Setup using our smart converter helper
     let videoHTML = `<div class="video-container"><div class="no-video">No Video Available</div></div>`;
     if (level.video && level.video.trim() !== "") {
-        // Run the raw JSON string through the converter first!
         const cleanEmbedUrl = getEmbedUrl(level.video);
-        
         videoHTML = `
             <div class="video-container">
                 <iframe src="${cleanEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -200,9 +234,14 @@ function selectLevel(rank) {
         `;
     }
 
-    // Safe, Case-Insensitive Mode Badge Lookup for detail panel header
     const matchedKey = Object.keys(modeClassMap).find(key => key.toLowerCase() === (level.mode || '').toLowerCase());
     const badgeClass = matchedKey ? modeClassMap[matchedKey] : 'badge-ship';
+
+    // Build the dynamic rating badge UI display if it exists in JSON
+    let ratingBadgeHTML = '';
+    if (level.rating && ratingClassMap[level.rating]) {
+        ratingBadgeHTML = `<div class="rating-badge ${ratingClassMap[level.rating]}">${level.rating}</div>`;
+    }
 
     detailPanel.innerHTML = `
         <div class="detail-header">
@@ -216,7 +255,10 @@ function selectLevel(rank) {
             </div>
 
             <p class="level-creator" style="font-size:1rem; margin-top: 4px;">Published by <strong>${level.author}</strong></p>
-            <span class="badge ${badgeClass}" style="display:inline-block; margin-top:10px;">${level.mode}</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <span class="badge ${badgeClass}" style="display:inline-block; margin-top:10px;">${level.mode}</span>
+                ${ratingBadgeHTML}
+            </div>
         </div>
 
         ${videoHTML}
@@ -228,9 +270,7 @@ function selectLevel(rank) {
         <h3 style="margin-bottom:15px; font-size:1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom:8px;">Records Verified</h3>
         <div class="records-list" style="display: flex; flex-direction: column; gap: 8px;">
             ${(() => {
-                // Filter to find players who have this specific level inside their completed array
                 const verifiedRecords = [];
-                
                 state.players.forEach(p => {
                     if (p.completed && Array.isArray(p.completed)) {
                         const match = p.completed.find(c => c.levelName === level.name);
@@ -262,9 +302,10 @@ function selectLevel(rank) {
     `;
 }
 
-// Populate Leaderboards Data Board Automatically with Formula Sorting & Alphabetical Tie-Breaker
+// Populate Player Leaderboard Board
 function renderLeaderboard() {
     const container = document.getElementById('leaderboard-container');
+    if (!container) return;
     container.innerHTML = '';
 
     if (state.players.length === 0) {
@@ -272,18 +313,15 @@ function renderLeaderboard() {
         return;
     }
 
-    // Map players to include their live calculated scores, then sort highest to lowest
     const sortedPlayers = state.players.map(player => {
         return {
             ...player,
             livePoints: getPlayerTotalPoints(player)
         };
     }).sort((a, b) => {
-        // 1. Sort by points (highest first)
         if (b.livePoints !== a.livePoints) {
             return b.livePoints - a.livePoints;
         }
-        // 2. Tie-breaker: Alphabetical order (A-Z)
         return a.name.localeCompare(b.name);
     });
 
@@ -305,11 +343,35 @@ function renderLeaderboard() {
     });
 }
 
-// Clean, Case-Insensitive Filtering Engine (No Console Logs Spammer)
+// Populate Creator Leaderboard Table
+function renderCreatorLeaderboard() {
+    const container = document.getElementById('creator-leaderboard-container');
+    if (!container) return; // Safely bypasses if table element doesn't exist on active view layout
+    container.innerHTML = '';
+
+    const sortedCreators = getCreatorLeaderboard();
+
+    if (sortedCreators.length === 0) {
+        container.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">No rated levels tracked in creator logs.</td></tr>';
+        return;
+    }
+
+    sortedCreators.forEach((creator, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td style="font-weight: 800; color: var(--teal);">#${index + 1}</td>
+            <td style="font-weight: 600;">${creator.name}</td>
+            <td style="color: var(--text-muted); font-size: 0.9rem;">${creator.levelsCreated} Rated Level(s)</td>
+            <td style="font-weight: 800; color: var(--teal);">${creator.points} CP</td>
+        `;
+        container.appendChild(row);
+    });
+}
+
+// Clean, Case-Insensitive Filtering Engine
 function filterMode(mode) {
     const buttons = document.querySelectorAll('.filter-bar button');
     
-    // 1. Update button styling states safely
     buttons.forEach(btn => {
         const onClickAttr = btn.getAttribute('onclick') || '';
         if (onClickAttr.toLowerCase().includes(mode.toLowerCase())) {
@@ -323,7 +385,6 @@ function filterMode(mode) {
         }
     });
 
-    // 2. Filter list layout elements directly
     const container = document.getElementById('levels-container');
     if (!container) return;
     
