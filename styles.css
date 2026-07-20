@@ -395,20 +395,52 @@ body {
     .landing-container h1 {
         font-size: 2.5rem;
     }
+} /* <--- CLOSING BRACE FIXED HERE */
 
-/* Creator Rating Highlights */
+/* ================= CREATOR RATING NEON GLOWS ================= */
 .rating-badge {
     display: inline-block;
-    padding: 4px 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
     border-radius: 4px;
-    margin-top: 8px;
+    margin-top: 10px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
-.rating-rated { background-color: #7f8c8d; color: #fff; }       /* Gray */
-.rating-featured { background-color: #cd7f32; color: #fff; }    /* Bronze */
-.rating-epic { background-color: #f1c40f; color: #000; }        /* Yellow */
-.rating-legendary { background-color: #9b59b6; color: #fff; }   /* Purple */
-.rating-mythic { background-color: #2980b9; color: #fff; }      /* Blue */
+
+/* Gray Glow */
+.rating-rated { 
+    background-color: rgba(127, 140, 141, 0.15); 
+    color: #bdc3c7; 
+    border: 1px solid #7f8c8d;
+    box-shadow: 0 0 10px rgba(127, 140, 141, 0.2);
+} 
+/* Bronze Glow */
+.rating-featured { 
+    background-color: rgba(205, 127, 50, 0.15); 
+    color: #f3a661; 
+    border: 1px solid #cd7f32;
+    box-shadow: 0 0 12px rgba(205, 127, 50, 0.3);
+} 
+/* Yellow/Gold Glow */
+.rating-epic { 
+    background-color: rgba(241, 196, 15, 0.15); 
+    color: #f1c40f; 
+    border: 1px solid #f1c40f;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+} 
+/* Purple/Epic Glow */
+.rating-legendary { 
+    background-color: rgba(155, 89, 182, 0.15); 
+    color: #d28bf2; 
+    border: 1px solid #9b59b6;
+    box-shadow: 0 0 15px rgba(155, 89, 182, 0.4);
+} 
+/* Blue/Mythic Glow */
+.rating-mythic { 
+    background-color: rgba(41, 128, 185, 0.15); 
+    color: #3498db; 
+    border: 1px solid #2980b9;
+    box-shadow: 0 0 20px rgba(41, 128, 185, 0.5);
 }
